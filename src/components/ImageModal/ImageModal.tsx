@@ -1,7 +1,16 @@
 import s from "./ImageModal.module.css";
 import Modal from "react-modal";
+import { Image } from "../../App.types";
 
-export default function ImageModal({ selectedImage, closeModal }) {
+interface ImageModalProps {
+  selectedImage: Image | null;
+  closeModal: () => void;
+}
+
+export default function ImageModal({
+  selectedImage,
+  closeModal,
+}: ImageModalProps) {
   if (!selectedImage) {
     return null;
   }
@@ -18,7 +27,7 @@ export default function ImageModal({ selectedImage, closeModal }) {
         <img
           className={s.image}
           src={selectedImage.urls.regular}
-          alt={selectedImage.alt_description}
+          alt={selectedImage.alt_description || "No description"}
         />
         <div className={s.imageDescription}>
           <p>{selectedImage.alt_description}</p>

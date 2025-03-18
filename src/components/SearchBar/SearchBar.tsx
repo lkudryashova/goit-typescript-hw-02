@@ -1,17 +1,25 @@
 import s from "./SearchBar.module.css";
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
-export default function SearchBar({ onSubmit }) {
-  const [value, setValue] = useState("");
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+}
 
-  const handleChange = (e) => {
+export default function SearchBar({ onSubmit }: SearchBarProps) {
+  const [value, setValue] = useState<string>("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (value.trim() === "") {
+      return;
+    }
     onSubmit(value);
+    setValue("");
   };
   return (
     <header className={s.header}>
