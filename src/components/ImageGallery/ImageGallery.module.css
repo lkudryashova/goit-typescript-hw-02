@@ -1,0 +1,19 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 18px;
+  padding: 0 24px;
+}
+
+.galleryItem {
+  width: calc((100% - 3 * 18px) / 4);
+  box-shadow:
+    0 2px 1px 0 rgba(46, 47, 66, 0.08),
+    0 1px 1px 0 rgba(46, 47, 66, 0.16),
+    0 1px 6px 0 rgba(46, 47, 66, 0.08);
+}
+
+.galleryItem:hover {
+  cursor: zoom-in;
+  transform: scale(1.02);
+}
