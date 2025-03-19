@@ -1,21 +1,27 @@
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-import ImageModal from "./components/ImageModal/ImageModal";
-import Loader from "./components/Loader/Loader";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
-import SearchBar from "./components/SearchBar/SearchBar";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import * as imagesService from "./services/api";
+import * as imagesService from "../../services/api";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import ImageModal from "../ImageModal/ImageModal";
+import Loader from "../Loader/Loader";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import SearchBar from "../SearchBar/SearchBar";
+import React from "react";
+
+type Image = {
+  id: string;
+  url: string;
+};
 
 export default function App() {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -24,7 +30,7 @@ export default function App() {
       try {
         const response = await imagesService.fetchImages(query, page);
         setImages((prev) => [...prev, ...response.results]);
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message);
       } finally {
         setLoading(false);
@@ -33,8 +39,8 @@ export default function App() {
     getData();
   }, [query, page]);
 
-  const handleSearch = (newQuery) => {
-    if (newQuery === "") {
+  const handleSearch = (newQuery: string) => {
+    if (!newQuery.trim()) {
       toast.error("Please enter a search term");
       return;
     }
@@ -48,7 +54,7 @@ export default function App() {
     setPage((prev) => prev + 1);
   };
 
-  const openModal = (image) => {
+  const openModal = (image: Image) => {
     setSelectedImage(image);
     setShowModal(true);
   };
