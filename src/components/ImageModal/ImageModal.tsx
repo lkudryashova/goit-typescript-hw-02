@@ -1,6 +1,6 @@
 import s from "./ImageModal.module.css";
 import Modal from "react-modal";
-import { Image } from "../../App.types";
+import { Image } from "../App/App.types";
 
 interface ImageModalProps {
   selectedImage: Image | null;
