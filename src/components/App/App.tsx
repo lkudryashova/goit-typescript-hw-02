@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import * as imagesService from "../../services/api";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import React from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
-import ImageModal from "../ImageModal/ImageModal";
-import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import SearchBar from "../SearchBar/SearchBar";
-import React from "react";
-
-type Image = {
-  id: string;
-  url: string;
-};
+import Loader from "../Loader/Loader";
+import ImageModal from "../ImageModal/ImageModal";
+import { Image } from "../App/App.types";
+import { number } from "prop-types";
 
 export default function App() {
   const [images, setImages] = useState<Image[]>([]);
@@ -40,7 +37,7 @@ export default function App() {
   }, [query, page]);
 
   const handleSearch = (newQuery: string) => {
-    if (!newQuery.trim()) {
+    if (newQuery === "") {
       toast.error("Please enter a search term");
       return;
     }

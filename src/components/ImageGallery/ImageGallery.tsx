@@ -4,7 +4,7 @@ import { Image } from "../App/App.types";
 
 interface ImageGalleryProps {
   images: Image[];
-  onImageClick: (image: Image) => void;
+  openModal: (image: Image) => void;
 }
 
 export default function ImageGallery({ images, openModal }: ImageGalleryProps) {
