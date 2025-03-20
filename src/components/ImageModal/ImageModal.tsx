@@ -31,7 +31,7 @@ export default function ImageModal({
         />
         <div className={s.imageDescription}>
           <p>{selectedImage.alt_description}</p>
-          <p>author: {selectedImage.user.name}</p>
+          <p>author: {selectedImage.user.name}</p>{" "}
         </div>
       </div>
     </Modal>
