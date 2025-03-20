@@ -5,7 +5,7 @@ export interface Image {
     regular: string;
   };
   alt_description: string | null;
-  user: {
+  user?: {
     name: string;
     profile_image?: {
       small: string;

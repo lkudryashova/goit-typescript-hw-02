@@ -9,7 +9,6 @@ import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader";
 import ImageModal from "../ImageModal/ImageModal";
 import { Image } from "../App/App.types";
-import { number } from "prop-types";
 
 export default function App() {
   const [images, setImages] = useState<Image[]>([]);
@@ -26,7 +25,19 @@ export default function App() {
       setLoading(true);
       try {
         const response = await imagesService.fetchImages(query, page);
-        setImages((prev) => [...prev, ...response.results]);
+        setImages((prev) => [
+          ...prev,
+          ...response.results.map((image: any) => ({
+            id: image.id,
+            urls: image.urls,
+            alt_description: image.alt_description,
+            user: image.user || {
+              name: "Unknown",
+              profile_image: undefined,
+              portfolio_url: undefined,
+            },
+          })),
+        ]);
       } catch (error: any) {
         setError(error.message);
       } finally {
